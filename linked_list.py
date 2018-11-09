@@ -43,3 +43,34 @@ class Solution:
             prev = curr
             a.next, curr.next, curr = curr, b, b
         return start
+
+    # 判断链表是否有环(用set实现，空间复杂度O(n))
+    def hasCycle1(self, head):
+        """
+        :type head: ListNode
+        :rtype: bool
+        """
+        curr = head
+        hash_set = set()
+        while curr:
+            if curr in hash_set:
+                return True
+            hash_set.add(curr)
+            curr = curr.next
+        else:
+            return False
+
+    # 判断链表是否有环(用快慢指针实现，空间复杂度O(1))
+    def hasCycle2(self, head):
+        """
+        :type head: ListNode
+        :rtype: bool
+        """
+        fast = slow = head
+        while slow and fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            if slow is fast:
+                return True
+        else:
+            return False
