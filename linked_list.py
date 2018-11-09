@@ -30,15 +30,16 @@ class Solution:
         :type head: ListNode
         :rtype: ListNode
         """
+        if head is None or head.next is None:
+            return head
         curr = head
         prev = None
         start = head.next
         while curr and curr.next:
             a = curr.next
+            b = a.next
             if prev is not None:
                 prev.next = curr.next
-                prev = prev.next
-            else:
-                prev = curr
-            a.next, curr.next, curr = curr, a.next, curr.next.next
+            prev = curr
+            a.next, curr.next, curr = curr, b, b
         return start
