@@ -74,3 +74,30 @@ class Solution:
                 return True
         else:
             return False
+
+    # 每k个节点一组翻转链表
+    def reverseKGroup(self, head, k):
+        """
+        :type head: ListNode
+        :type k: int
+        :rtype: ListNode
+        """
+        slow = fast = k_end = head
+        a = b = None
+        while True:
+            prev = None
+            count = 0
+            while count < k:
+                if fast.next is not None:
+                    fast = fast.next
+                    count += 1
+                else:
+                    return b
+            a, k_end = k_end, slow
+            while slow is not fast:
+                slow.next, prev, slow = prev, slow, slow.next
+            k_end.next = slow
+            if a is not k_end:
+                a.next = prev
+            if b is None:
+                b = prev
