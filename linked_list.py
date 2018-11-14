@@ -82,22 +82,20 @@ class Solution:
         :type k: int
         :rtype: ListNode
         """
-        slow = fast = k_end = head
-        a = b = None
+        slow = fast = k_end = k_end_prev = start = head
         while True:
-            prev = None
             count = 0
-            while count < k:
-                if fast.next is not None:
-                    fast = fast.next
-                    count += 1
+            while fast and count < k:
+                fast = fast.next
+                count += 1
+            if count == k:
+                prev = fast
+                for _ in range(k):
+                    slow.next, prev, slow = prev, slow, slow.next
+                if k_end_prev is not k_end:
+                    k_end_prev.next = prev
                 else:
-                    return b
-            a, k_end = k_end, slow
-            while slow is not fast:
-                slow.next, prev, slow = prev, slow, slow.next
-            k_end.next = slow
-            if a is not k_end:
-                a.next = prev
-            if b is None:
-                b = prev
+                    start = prev
+                k_end_prev, k_end = k_end, slow
+            else:
+                return start
