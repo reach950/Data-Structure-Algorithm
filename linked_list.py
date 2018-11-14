@@ -99,3 +99,23 @@ class Solution:
                 k_end_prev, k_end = k_end, slow
             else:
                 return start
+
+    # 环形链表的起始位置
+    def detectCycle(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        fast = slow = head
+        while slow and fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            if slow is fast:
+                break
+        if fast is None or fast.next is None:
+            return None
+        slow = head
+        while slow is not fast:
+            slow = slow.next
+            fast = fast.next
+        return slow
