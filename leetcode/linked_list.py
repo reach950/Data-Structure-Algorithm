@@ -12,7 +12,7 @@
 
 class Solution:
 
-    # 反转链表
+    # 206. Reverse Linked List 反转链表
     def reverseList(self, head):
         """
         :type head: ListNode
@@ -24,7 +24,7 @@ class Solution:
             curr.next, prev, curr = prev, curr, curr.next
         return prev
 
-    # 两两反转
+    # 24. Swap Nodes in Pairs 两两交换链表中的节点
     def swapPairs(self, head):
         """
         :type head: ListNode
@@ -44,7 +44,7 @@ class Solution:
             a.next, curr.next, curr = curr, b, b
         return start
 
-    # 判断链表是否有环(用set实现，空间复杂度O(n))
+    # 141. Linked List Cycle 判断链表是否有环(用set实现，空间复杂度O(n))
     def hasCycle1(self, head):
         """
         :type head: ListNode
@@ -60,7 +60,7 @@ class Solution:
         else:
             return False
 
-    # 判断链表是否有环(用快慢指针实现，空间复杂度O(1))
+    # 141. Linked List Cycle 判断链表是否有环(用快慢指针实现，空间复杂度O(1))
     def hasCycle2(self, head):
         """
         :type head: ListNode
@@ -75,7 +75,7 @@ class Solution:
         else:
             return False
 
-    # 每k个节点一组翻转链表
+    # 25. Reverse Nodes in k-Group k个一组翻转链表
     def reverseKGroup(self, head, k):
         """
         :type head: ListNode
@@ -100,7 +100,7 @@ class Solution:
             else:
                 return start
 
-    # 环形链表的起始位置
+    # 142. Linked List Cycle II 环形链表的起始位置
     def detectCycle(self, head):
         """
         :type head: ListNode
