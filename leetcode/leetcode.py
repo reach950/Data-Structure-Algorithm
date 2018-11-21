@@ -53,3 +53,24 @@ class Solution:
         for j in t:
             t_list[ord(j) - ord('a')] += 1
         return s_list == t_list
+
+    # 15. 3Sum 三数之和
+    def threeSum(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        if len(nums) < 3:
+            return []
+        nums.sort()
+        result_list = set()
+        for i, x in enumerate(nums[:-2]):
+            if i >= 1 and x == nums[i-1]:
+                continue
+            temp_dict = dict()
+            for j, y in enumerate(nums[i+1:]):
+                if y not in temp_dict:
+                    temp_dict[y] = j
+                if -x-y in temp_dict and temp_dict[-x-y] != j:
+                    result_list.add((x, -x-y, y))
+        return map(list, result_list)
