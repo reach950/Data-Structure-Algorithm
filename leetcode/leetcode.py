@@ -40,7 +40,7 @@ class Solution:
             return False
         return True
 
-    # 242. Valid Anagram
+    # 242. Valid Anagram 有效的字母异位词
     def isAnagram(self, s, t):
         """
         :type s: str
