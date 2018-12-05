@@ -88,4 +88,30 @@ class Solution:
             return 1 / self.myPow(x, -n)
         if n % 2 == 1:
             return x * self.myPow(x, n-1)
-        return self.myPow(x * x, n / 2)
+        return self.myPow(x * x, n // 2)
+
+    # 169. Majority Element 求众数
+    def majorityElement(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        temp_dict = dict()
+        for i in nums:
+            temp_dict[i] = temp_dict.get(i, 0) + 1
+            if temp_dict[i] > len(nums) / 2:
+                return i
+
+    # 122. Best Time to Buy and Sell Stock II 买卖股票的最佳时机 II
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+        profit = 0
+        if len(prices) < 2:
+            return profit
+        for i in range(len(prices) - 1):
+            if prices[i] < prices[i+1]:
+                profit += prices[i+1] - prices[i]
+        return profit
