@@ -36,16 +36,17 @@ class Graph:
     # 深度优先搜索
     def dfs(self, s, t):
 
-        self.found = False
+        found = False
         visted = [False] * self.v
         prev = [-1] * self.v
 
         def recur_dfs(start):
-            if self.found:
+            nonlocal found
+            if found:
                 return
             visted[start] = True
             if start == t:
-                self.found = True
+                found = True
                 return
             for i in self.adj[start]:
                 if not visted[i]:
