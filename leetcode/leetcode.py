@@ -164,6 +164,36 @@ class Solution:
                 self.forward_slash.remove(row+i)
                 self.back_slash.remove(row-i)
 
+    # 69. Sqrt(x) x 的平方根
+    def mySqrt(self, x):
+        """
+        :type x: int
+        :rtype: int
+        """
+        if x == 0 or x == 1:
+            return x
+        left, right = 1, x
+        while left <= right:
+            mid = left + ((right - left) >> 1)
+            if mid == x / mid:
+                return mid
+            elif mid > x / mid:
+                right = mid - 1
+            else:
+                left = mid + 1
+        return right
+
+    # 69 修改版，返回精度小数
+    def my_sqrt(self, x, precision):
+        left, right = 0, x
+        while right - left >= 1 / (10 ** precision):
+            mid = left + (right - left) / 2
+            if mid > x / mid:
+                right = mid
+            else:
+                left = mid
+        return left
+
 
 if __name__ == '__main__':
-    print(Solution().solveNQueens(4))
+    print(Solution().my_sqrt(2, 2))
