@@ -3,11 +3,12 @@
 
 """链表算法题"""
 
+
 # Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
+class ListNode:
+    def __init__(self, x):
+        self.val = x
+        self.next = None
 
 
 class Solution:
@@ -119,3 +120,63 @@ class Solution:
             slow = slow.next
             fast = fast.next
         return slow
+
+    # 21. Merge Two Sorted Lists 两个有序的链表合并(递归实现)
+    def mergeTwoLists1(self, l1, l2):
+        """
+        :type l1: ListNode
+        :type l2: ListNode
+        :rtype: ListNode
+        """
+        if l1 is None or l2 is None:
+            return l1 or l2
+        if l1.val < l2.val:
+            l1.next = self.mergeTwoLists1(l1.next, l2)
+            return l1
+        else:
+            l2.next = self.mergeTwoLists1(l1, l2.next)
+            return l2
+
+    # 21. Merge Two Sorted Lists 两个有序的链表合并(循环实现)
+    def mergeTwoLists2(self, l1, l2):
+        """
+        :type l1: ListNode
+        :type l2: ListNode
+        :rtype: ListNode
+        """
+        start = curr = ListNode(0)
+        while l1 and l2:
+            if l1.val > l2.val:
+                curr.next = l2
+                l2 = l2.next
+            else:
+                curr.next = l1
+                l1 = l1.next
+            curr = curr.next
+        curr.next = l1 or l2
+        return start.next
+
+    # 19. Remove Nth Node From End of List 删除链表倒数第 n 个结点
+    def removeNthFromEnd(self, head, n):
+        """
+        :type head: ListNode
+        :type n: int
+        :rtype: ListNode
+        """
+        if head is None:
+            return None
+        curr, temp_list = head, [head]
+        while curr.next:
+            curr = curr.next
+            temp_list.append(curr)
+        length = len(temp_list)
+        if n == length:
+            temp_list.pop(0)
+        elif n == 1:
+            temp_list[length-1-n].next = None
+        else:
+            temp_list[length-1-n].next = temp_list[length+1-n]
+        if temp_list:
+            return temp_list[0]
+        else:
+            return None
