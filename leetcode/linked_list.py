@@ -156,8 +156,8 @@ class Solution:
         curr.next = l1 or l2
         return start.next
 
-    # 19. Remove Nth Node From End of List 删除链表倒数第 n 个结点
-    def removeNthFromEnd(self, head, n):
+    # 19. Remove Nth Node From End of List 删除链表倒数第 n 个结点(空间复杂度O(n))
+    def removeNthFromEnd1(self, head, n):
         """
         :type head: ListNode
         :type n: int
@@ -180,3 +180,33 @@ class Solution:
             return temp_list[0]
         else:
             return None
+
+    # 19. Remove Nth Node From End of List 删除链表倒数第 n 个结点(快慢指针实现 空间复杂度O(1))
+    def removeNthFromEnd2(self, head, n):
+        """
+        :type head: ListNode
+        :type n: int
+        :rtype: ListNode
+        """
+        fast = slow = head
+        for _ in range(n):
+            fast = fast.next
+        if fast is None:
+            return None
+        while fast.next:
+            fast = fast.next
+            slow = slow.next
+        slow.next = slow.next.next
+        return head
+
+    # 876. Middle of the Linked List 求链表的中间结点
+    def middleNode(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        fast = slow = head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        return slow
