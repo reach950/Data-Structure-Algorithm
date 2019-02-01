@@ -18,13 +18,14 @@ def bubble_sort(target_list):
 # 插入排序
 def insert_sort(target_list):
     for i in range(1, len(target_list)):
-        value = target_list[i]
-        for j in range(i, -1, -1):
-            if value < target_list[j-1]:
-                target_list[j] = target_list[j-1]
-            else:
+        temp = target_list[i]
+        j = i - 1
+        while temp < target_list[j]:
+            target_list[j+1] = target_list[j]
+            j -= 1
+            if j < 0:
                 break
-        target_list[j] = value
+        target_list[j+1] = temp
     return target_list
 
 
@@ -64,8 +65,6 @@ def merge_sort(target_list):
     if len(target_list) <= 1:
         return target_list
     sep = len(target_list) // 2
-    merge_sort(target_list[:sep])
-    merge_sort(target_list[sep:])
     return merge(merge_sort(target_list[:sep]), merge_sort(target_list[sep:]))
 
 
@@ -145,4 +144,4 @@ def find_index(target_list, k):
 
 if __name__ == '__main__':
     test_list = [6, 8, 17, 11, 9, 3, 32, 23, 5, 25]
-    print(count_sort(test_list))
+    print(merge_sort(test_list))
