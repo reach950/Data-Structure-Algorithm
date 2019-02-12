@@ -194,6 +194,31 @@ class Solution:
                 left = mid
         return left
 
+    # 150. Evaluate Reverse Polish Notation
+    def evalRPN(self, tokens):
+        """
+        :type tokens: List[str]
+        :rtype: int
+        """
+        ops = ("+", "-", "*", "/")
+        temp_stack = []
+        res = 0
+        for i in tokens:
+            if i in ops:
+                r, l = temp_stack.pop(), temp_stack.pop()
+                if i == "+":
+                    res = l + r
+                elif i == "-":
+                    res = l - r
+                elif i == "*":
+                    res = l * r
+                else:
+                    res = int(l / r)
+                temp_stack.append(res)
+            else:
+                temp_stack.append(int(i))
+        return temp_stack.pop()
+
 
 if __name__ == '__main__':
-    print(Solution().my_sqrt(2, 2))
+    print(Solution().evalRPN(["10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+"]))
