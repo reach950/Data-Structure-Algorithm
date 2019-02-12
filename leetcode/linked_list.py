@@ -31,19 +31,14 @@ class Solution:
         :type head: ListNode
         :rtype: ListNode
         """
-        if head is None or head.next is None:
-            return head
-        curr = head
-        prev = None
-        start = head.next
-        while curr and curr.next:
-            a = curr.next
+        prev = start = ListNode(0)
+        prev.next = head
+        while prev.next and prev.next.next:
+            a = prev.next
             b = a.next
-            if prev is not None:
-                prev.next = curr.next
-            prev = curr
-            a.next, curr.next, curr = curr, b, b
-        return start
+            a.next, b.next, prev.next = b.next, a, b
+            prev = b.next
+        return start.next
 
     # 141. Linked List Cycle 判断链表是否有环(用set实现，空间复杂度O(n))
     def hasCycle1(self, head):
