@@ -45,3 +45,24 @@ class Solution:
             if i >= k-1:
                 res.append(nums[deque[0]])
         return res
+
+    def maxSlidingWindow_2(self, nums: 'List[int]', k: 'int') -> 'List[int]':
+        heap = []
+        res = []
+        ne_nums = [i*-1 for i in nums]
+        for i, v in enumerate(ne_nums):
+            if i < k:
+                heapq.heappush(heap, v)
+                continue
+            res.append(heap[0])
+            heap.remove(ne_nums[i-k])
+            heapq.heapify(heap)
+            heapq.heappush(heap, v)
+        if heap:
+            res.append(heap[0])
+        return [i*-1 for i in res]
+
+
+if __name__ == '__main__':
+    res = Solution().maxSlidingWindow_2([1, 3, 1, 2, 0, 5], 3)
+    print(res)
