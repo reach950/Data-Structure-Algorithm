@@ -142,6 +142,10 @@ def find_index(target_list, k):
     return target_list[k-1]
 
 
+def heap_sort(target_list):
+    pass
+
+
 if __name__ == '__main__':
     test_list = [6, 8, 17, 11, 9, 3, 32, 23, 5, 25]
     print(merge_sort(test_list))

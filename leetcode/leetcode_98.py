@@ -30,3 +30,15 @@ class Solution(object):
             return False
         self.prev = root
         return self.helper(root.right)
+
+    def isValidBST1(self, root) -> bool:
+        return self.helper1(root, None, None)
+
+    def helper1(self, root, min, max):
+        if root is None:
+            return True
+        if min is not None and root.val <= min:
+            return False
+        if max is not None and root.val >= max:
+            return False
+        return self.helper1(root.left, min, root.val) and self.helper1(root.right, root.val, max)

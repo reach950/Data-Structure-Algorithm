@@ -43,7 +43,7 @@ class Solution:
         """
         if root is None:
             return None
-        while True:
+        while root:
             if p.val >= root.val >= q.val or p.val <= root.val <= q.val:
                 return root
             elif p.val > root.val < q.val:
