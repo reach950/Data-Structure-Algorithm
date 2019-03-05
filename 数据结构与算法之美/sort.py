@@ -143,9 +143,36 @@ def find_index(target_list, k):
 
 
 def heap_sort(target_list):
-    pass
+    build_heap(target_list)
+    n = len(target_list)
+    while n > 1:
+        target_list[0], target_list[n-1] = target_list[n-1], target_list[0]
+        n -= 1
+        heapify(target_list, 0, n)
+
+
+def build_heap(target_list):
+    n = len(target_list)
+    for i in reversed(range(n//2)):
+        heapify(target_list, i, n)
+
+
+def heapify(target_list, i, n):
+    while True:
+        max_pos = i
+        left = i*2+1
+        right = i*2+2
+        if left < n and target_list[i] < target_list[left]:
+            max_pos = left
+        if right < n and target_list[max_pos] < target_list[right]:
+            max_pos = right
+        if max_pos == i:
+            break
+        target_list[i], target_list[max_pos] = target_list[max_pos], target_list[i]
+        i = max_pos
 
 
 if __name__ == '__main__':
     test_list = [6, 8, 17, 11, 9, 3, 32, 23, 5, 25]
-    print(merge_sort(test_list))
+    heap_sort(test_list)
+    print(test_list)
