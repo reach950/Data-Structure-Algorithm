@@ -7,7 +7,6 @@
 class Backtracking:
 
     maxw = 0
-    result = False
 
     # 0,1背包问题
     # i表示考察到哪个物品了,cw表示当前装进去的重量和,w表示背包重量,n表示物品总个数
@@ -20,6 +19,25 @@ class Backtracking:
         cls.f(i + 1, cw, items, n, w)
         if cw + items[i] <= w:
             cls.f(i + 1, cw + items[i], items, n, w)
+
+    # 0,1背包问题优化算法
+    @classmethod
+    def f_opt(cls, items, n, w):
+        cls.state_list = [[False for _ in range(w + 1)] for _ in range(n)]
+        cls.f_opt_helper(0, 0, items, n, w)
+
+    @classmethod
+    def f_opt_helper(cls, i, cw, items, n, w):
+        if cw == w or i == n:
+            if cw > cls.maxw:
+                cls.maxw = cw
+            return
+        if cls.state_list[i][cw]:
+            return
+        cls.state_list[i][cw] = True
+        cls.f_opt_helper(i + 1, cw, items, n, w)
+        if cw + items[i] <= w:
+            cls.f_opt_helper(i + 1, cw + items[i], items, n, w)
 
     # n皇后问题
     @classmethod
@@ -84,20 +102,21 @@ class Backtracking:
 
 
 if __name__ == '__main__':
-    # items = [7, 2, 4, 11, 9]
+    items = [7, 2, 4, 11, 9]
+    Backtracking.f_opt(items, len(items), 25)
     # Backtracking.f(0, 0, items, len(items), 25)
-    # print(Backtracking.maxw)
+    print(Backtracking.maxw)
     # print(Backtracking.solve_n_queens(4))
-    board = [['5', '3', '.', '.', '7', '.', '.', '.', '.'],
-             ['6', '.', '.', '1', '9', '5', '.', '.', '.'],
-             ['.', '9', '8', '.', '.', '.', '.', '6', '.'],
-             ['8', '.', '.', '.', '6', '.', '.', '.', '3'],
-             ['4', '.', '.', '8', '.', '3', '.', '.', '1'],
-             ['7', '.', '.', '.', '2', '.', '.', '.', '6'],
-             ['.', '6', '.', '.', '.', '.', '2', '8', '.'],
-             ['.', '.', '.', '4', '1', '9', '.', '.', '5'],
-             ['.', '.', '.', '.', '8', '.', '.', '7', '9']
-             ]
-    Backtracking.solve_shudu(board)
-    for i in board:
-        print(i)
+    # board = [['5', '3', '.', '.', '7', '.', '.', '.', '.'],
+    #          ['6', '.', '.', '1', '9', '5', '.', '.', '.'],
+    #          ['.', '9', '8', '.', '.', '.', '.', '6', '.'],
+    #          ['8', '.', '.', '.', '6', '.', '.', '.', '3'],
+    #          ['4', '.', '.', '8', '.', '3', '.', '.', '1'],
+    #          ['7', '.', '.', '.', '2', '.', '.', '.', '6'],
+    #          ['.', '6', '.', '.', '.', '.', '2', '8', '.'],
+    #          ['.', '.', '.', '4', '1', '9', '.', '.', '5'],
+    #          ['.', '.', '.', '.', '8', '.', '.', '7', '9']
+    #          ]
+    # Backtracking.solve_shudu(board)
+    # for i in board:
+    #     print(i)
