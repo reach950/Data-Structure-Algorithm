@@ -76,11 +76,25 @@ class DynamicProgramming:
                 min_sum = i
         return min_sum
 
+    # 硬币找零问题 coin_list:已有的硬币价格 price:总价
+    def find_min_coins(self, coin_list, price):
+        min_nums = [0 for _ in range(price + 1)]
+        for i in coin_list:
+            min_nums[i] = 1
+        while True:
+            for i in reversed(range(price + 1)):
+                for j in reversed(coin_list):
+                    if min_nums[price] > 0:
+                        return min_nums[price]
+                    if min_nums[i] > 0 and i + j <= price:
+                        min_nums[i + j] = 1 + min_nums[i]
+
 
 if __name__ == '__main__':
     # items = [2, 2, 4, 6, 3]
     # values = [3, 4, 8, 9, 6]
     # w = 9
     # print(DynamicProgramming().f_max_value(items, values, w))
-    yh_triangle = [[5], [7, 8], [2, 3, 4], [4, 9, 6, 1], [2, 7, 9, 4, 5]]
-    print(DynamicProgramming().find_min_sums(yh_triangle))
+    # yh_triangle = [[5], [7, 8], [2, 3, 4], [4, 9, 6, 1], [2, 7, 9, 4, 5]]
+    # print(DynamicProgramming().find_min_sums(yh_triangle))
+    print(DynamicProgramming().find_min_coins([1, 3, 5], 10))
