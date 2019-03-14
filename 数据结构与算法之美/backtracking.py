@@ -100,12 +100,23 @@ class Backtracking:
                 return False
         return True
 
+    # 硬币找零问题 coin_list:已有的硬币价格 price:总价
+    def find_min_coins(self, coin_list, price):
+        self.count = price
+        self.find_min_coins_helper(coin_list, price, 0, 0)
+        return self.count
+
+    def find_min_coins_helper(self, coin_list, price, n, price_sum):
+        if price_sum == price:
+            if n < self.count:
+                self.count = n
+            return
+        for coin in coin_list:
+            if coin <= price - price_sum:
+                self.find_min_coins_helper(coin_list, price, n+1, price_sum+coin)
+
 
 if __name__ == '__main__':
-    items = [7, 2, 4, 11, 9]
-    Backtracking.f_opt(items, len(items), 25)
-    # Backtracking.f(0, 0, items, len(items), 25)
-    print(Backtracking.maxw)
     # print(Backtracking.solve_n_queens(4))
     # board = [['5', '3', '.', '.', '7', '.', '.', '.', '.'],
     #          ['6', '.', '.', '1', '9', '5', '.', '.', '.'],
@@ -120,3 +131,4 @@ if __name__ == '__main__':
     # Backtracking.solve_shudu(board)
     # for i in board:
     #     print(i)
+    print(Backtracking().find_min_coins([1, 3, 5], 9))
