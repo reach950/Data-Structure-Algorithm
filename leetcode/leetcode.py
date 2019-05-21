@@ -263,6 +263,19 @@ class Solution:
                 return True
         return False
 
+    # 191. Number of 1 Bits
+    def hammingWeight(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        count = 0
+        while n != 0:
+            count += 1
+            n = n & (n - 1)
+        return count
+
 
 if __name__ == '__main__':
     print(Solution().evalRPN(["10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+"]))
+    print(Solution().hammingWeight(15))
