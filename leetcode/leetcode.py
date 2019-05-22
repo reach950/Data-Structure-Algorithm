@@ -194,7 +194,7 @@ class Solution:
                 left = mid
         return left
 
-    # 150. Evaluate Reverse Polish Notation
+    # 150. Evaluate Reverse Polish Notation 逆波兰表达式求值
     def evalRPN(self, tokens):
         """
         :type tokens: List[str]
@@ -219,7 +219,7 @@ class Solution:
                 temp_stack.append(int(i))
         return temp_stack.pop()
 
-    # 33. Search in Rotated Sorted Array
+    # 33. Search in Rotated Sorted Array 搜索旋转排序数组
     def search(self, nums: 'List[int]', target: 'int') -> 'int':
         left = 0
         right = len(nums) - 1
@@ -245,7 +245,7 @@ class Solution:
                     right = mid - 1
         return -1
 
-    # 567. Permutation in String
+    # 567. Permutation in String 字符串的排列
     def checkInclusion(self, s1, s2):
         A = [ord(x) - ord('a') for x in s1]
         B = [ord(x) - ord('a') for x in s2]
@@ -263,7 +263,7 @@ class Solution:
                 return True
         return False
 
-    # 191. Number of 1 Bits
+    # 191. Number of 1 Bits 位1的个数
     def hammingWeight(self, n):
         """
         :type n: int
@@ -274,6 +274,25 @@ class Solution:
             count += 1
             n = n & (n - 1)
         return count
+
+    # 231. Power of Two 2的幂次方
+    def isPowerOfTwo(self, n):
+        """
+        :type n: int
+        :rtype: bool
+        """
+        return n > 0 and n & (n - 1) == 0
+
+    # 338. Counting Bits 比特位统计
+    def countBits(self, num):
+        """
+        :type num: int
+        :rtype: List[int]
+        """
+        result = [0]
+        for i in range(1, num+1):
+            result.append(result[i & (i - 1)] + 1)
+        return result
 
 
 if __name__ == '__main__':
