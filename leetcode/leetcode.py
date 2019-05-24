@@ -135,35 +135,6 @@ class Solution:
         if right < left:
             self._gen(left, right+1, n, result+')')
 
-    # 51. N-Queens N皇后
-    def solveNQueens(self, n):
-        """
-        :type n: int
-        :rtype: List[List[str]]
-        """
-        self.select_column = set()
-        self.forward_slash = set()
-        self.back_slash = set()
-        self.result = []
-        self._solveNQueens(n, 0, [])
-        return self.result
-
-    def _solveNQueens(self, n, row, curr_list):
-        if row >= n:
-            self.result.append(curr_list)
-            return
-        for i in range(n):
-            if i not in self.select_column and row+i not in self.forward_slash and row-i not in self.back_slash:
-                self.select_column.add(i)
-                self.forward_slash.add(row+i)
-                self.back_slash.add(row-i)
-
-                self._solveNQueens(n, row+1, curr_list+[i])
-
-                self.select_column.remove(i)
-                self.forward_slash.remove(row+i)
-                self.back_slash.remove(row-i)
-
     # 69. Sqrt(x) x 的平方根
     def mySqrt(self, x):
         """
