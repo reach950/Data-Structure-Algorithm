@@ -40,5 +40,5 @@ class Solution:
 
 
 if __name__ == '__main__':
-    nums = [4,10,4,3,8,9]
+    nums = [4, 10, 4, 3, 8, 9]
     print(Solution().lengthOfLIS1(nums))
