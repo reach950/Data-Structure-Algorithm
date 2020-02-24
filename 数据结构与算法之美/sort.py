@@ -6,9 +6,9 @@
 def bubble_sort(target_list):
     for i in range(len(target_list)):
         flag = False
-        for j in range(len(target_list)-i-1):
-            if target_list[j] > target_list[j+1]:
-                target_list[j], target_list[j+1] = target_list[j+1], target_list[j]
+        for j in range(len(target_list) - i - 1):
+            if target_list[j] > target_list[j + 1]:
+                target_list[j], target_list[j + 1] = target_list[j + 1], target_list[j]
                 flag = True
         if not flag:
             break
@@ -21,19 +21,19 @@ def insert_sort(target_list):
         temp = target_list[i]
         j = i - 1
         while temp < target_list[j]:
-            target_list[j+1] = target_list[j]
+            target_list[j + 1] = target_list[j]
             j -= 1
             if j < 0:
                 break
-        target_list[j+1] = temp
+        target_list[j + 1] = temp
     return target_list
 
 
 # 选择排序
 def selection_sort(target_list):
-    for i in range(len(target_list)-1):
+    for i in range(len(target_list) - 1):
         index = i
-        for j in range(i+1, len(target_list)):
+        for j in range(i + 1, len(target_list)):
             if target_list[j] < target_list[index]:
                 index = j
         target_list[i], target_list[index] = target_list[index], target_list[i]
@@ -42,7 +42,6 @@ def selection_sort(target_list):
 
 # 归并排序
 def merge_sort(target_list):
-
     def merge(a_list, b_list):
         temp_list = []
         i = 0
@@ -70,7 +69,6 @@ def merge_sort(target_list):
 
 # 快速排序
 def quick_sort(target_list):
-
     def seprate(start, end):
         pivot = target_list[end]
         i = j = start
@@ -86,10 +84,10 @@ def quick_sort(target_list):
         if start >= end:
             return
         seprate_index = seprate(start, end)
-        quick_sort_recursive(start, seprate_index-1)
-        quick_sort_recursive(seprate_index+1, end)
+        quick_sort_recursive(start, seprate_index - 1)
+        quick_sort_recursive(seprate_index + 1, end)
 
-    quick_sort_recursive(0, len(target_list)-1)
+    quick_sort_recursive(0, len(target_list) - 1)
     return target_list
 
 
@@ -102,8 +100,8 @@ def count_sort(target_list):
     count_list = [0] * (max + 1)
     for i in target_list:
         count_list[i] += 1
-    for i in range(1, max+1):
-        count_list[i] = count_list[i-1] + count_list[i]
+    for i in range(1, max + 1):
+        count_list[i] = count_list[i - 1] + count_list[i]
     temp_list = target_list.copy()
     for i in reversed(target_list):
         index = count_list[i] - 1
@@ -115,7 +113,6 @@ def count_sort(target_list):
 
 # 求解无序数组中第K大元素
 def find_index(target_list, k):
-
     def seprate(start, end):
         pivot = target_list[end]
         i = j = start
@@ -131,37 +128,37 @@ def find_index(target_list, k):
         if start >= end:
             return
         index = seprate(start, end)
-        if index+1 == k:
+        if index + 1 == k:
             return
-        elif index+1 > k:
-            find_index_recursive(start, index-1)
+        elif index + 1 > k:
+            find_index_recursive(start, index - 1)
         else:
-            find_index_recursive(index+1, end)
+            find_index_recursive(index + 1, end)
 
-    find_index_recursive(0, len(target_list)-1)
-    return target_list[k-1]
+    find_index_recursive(0, len(target_list) - 1)
+    return target_list[k - 1]
 
 
 def heap_sort(target_list):
     build_heap(target_list)
     n = len(target_list)
     while n > 1:
-        target_list[0], target_list[n-1] = target_list[n-1], target_list[0]
+        target_list[0], target_list[n - 1] = target_list[n - 1], target_list[0]
         n -= 1
         heapify(target_list, 0, n)
 
 
 def build_heap(target_list):
     n = len(target_list)
-    for i in reversed(range(n//2)):
+    for i in reversed(range(n // 2)):
         heapify(target_list, i, n)
 
 
 def heapify(target_list, i, n):
     while True:
         max_pos = i
-        left = i*2+1
-        right = i*2+2
+        left = i * 2 + 1
+        right = i * 2 + 2
         if left < n and target_list[i] < target_list[left]:
             max_pos = left
         if right < n and target_list[max_pos] < target_list[right]:
