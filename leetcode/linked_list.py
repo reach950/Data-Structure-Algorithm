@@ -3,8 +3,12 @@
 
 """链表算法题"""
 
+from queue import PriorityQueue
+
 
 # Definition for singly-linked list.
+
+
 class ListNode:
     def __init__(self, x):
         self.val = x
@@ -66,8 +70,7 @@ class Solution:
                 return True
             hash_set.add(curr)
             curr = curr.next
-        else:
-            return False
+        return False
 
     # 141. Linked List Cycle 判断链表是否有环(用快慢指针实现，空间复杂度O(1))
     def hasCycle2(self, head):
@@ -81,8 +84,7 @@ class Solution:
             fast = fast.next.next
             if slow is fast:
                 return True
-        else:
-            return False
+        return False
 
     # 25. Reverse Nodes in k-Group k个一组翻转链表
     def reverseKGroup(self, head, k):
@@ -91,23 +93,26 @@ class Solution:
         :type k: int
         :rtype: ListNode
         """
-        slow = fast = k_end = k_end_prev = start = head
-        while True:
-            count = 0
-            while fast and count < k:
-                fast = fast.next
-                count += 1
-            if count == k:
-                prev = fast
-                for _ in range(k):
-                    slow.next, prev, slow = prev, slow, slow.next
-                if k_end_prev is not k_end:
-                    k_end_prev.next = prev
-                else:
-                    start = prev
-                k_end_prev, k_end = k_end, slow
-            else:
-                return start
+        if head or head.next or k < 2:
+            return head
+        start = prev_sub_tail = ListNode(0)
+        start.next = head
+        sub_head = sub_tail = head
+        while sub_head:
+            for _ in range(k - 1):
+                if sub_tail is None:
+                    return start.next
+                sub_tail = sub_tail.next
+            next_sub_head = sub_tail.next
+            # 将子链表的tail的next指针设为null,反转链表
+            sub_tail.next = None
+            Solution().reverseList(sub_head)
+            # 把子链表接起来,此时的subHead为反转后的tail,subTail为反转后的head
+            prev_sub_tail.next = sub_tail
+            sub_head.next = next_sub_head
+            # 将prevSubTail更新子链表的tail,subHead,subTail更新到下一个子链表的head
+            prev_sub_tail, sub_head, sub_tail = sub_head, next_sub_head, next_sub_head
+        return start.next
 
     # 142. Linked List Cycle II 环形链表的起始位置
     def detectCycle(self, head):
@@ -181,9 +186,9 @@ class Solution:
         if n == length:
             temp_list.pop(0)
         elif n == 1:
-            temp_list[length-1-n].next = None
+            temp_list[length - 1 - n].next = None
         else:
-            temp_list[length-1-n].next = temp_list[length+1-n]
+            temp_list[length - 1 - n].next = temp_list[length + 1 - n]
         if temp_list:
             return temp_list[0]
         else:
@@ -218,3 +223,19 @@ class Solution:
             slow = slow.next
             fast = fast.next.next
         return slow
+
+    # 23. Merge k Sorted Lists合并K个排序链表
+    def mergeKLists(self, lists):
+        if not lists:
+            return None
+        queue = PriorityQueue()
+        start = curr = ListNode(0)
+        for l in lists:
+            queue.put((l.val, l))
+        while queue:
+            curr.next = queue.get()[1]
+            curr = curr.next
+            node = curr.next
+            if node:
+                queue.put(node.val, node)
+        return start.next
