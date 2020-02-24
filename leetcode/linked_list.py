@@ -25,6 +25,19 @@ class Solution:
             curr.next, prev, curr = prev, curr, curr.next
         return prev
 
+    # 反转链表递归实现
+    def reverseList1(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        if head is None or head.next is None:
+            return head
+        p = self.reverseList1(head.next)
+        head.next.next = head
+        head.next = None
+        return p
+
     # 24. Swap Nodes in Pairs 两两交换链表中的节点
     def swapPairs(self, head):
         """
